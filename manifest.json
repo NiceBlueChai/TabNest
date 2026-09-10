@@ -1,0 +1,14 @@
+{
+    "manifest_version": 3,
+    "name": "TabNest · 标签收纳",
+    "version": "1.0.0",
+    "description": "现代本地标签管理器：保存窗口及原生分组，按组恢复，导入导出备份。",
+    "minimum_chrome_version": "120",
+    "permissions": ["tabs", "tabGroups", "storage", "unlimitedStorage"],
+    "background": {"service_worker": "background.js", "type": "module"},
+    "action": {"default_title": "收纳当前标签、分组或全部标签", "default_popup": "popup.html"},
+    "icons": {"128": "icon.png"},
+    "content_security_policy": {
+        "extension_pages": "script-src 'self'; object-src 'none'; base-uri 'none'"
+    }
+}

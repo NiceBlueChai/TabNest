@@ -1,0 +1,32 @@
+<!doctype html>
+<!-- 从当前浏览窗口直接收纳单个标签、原生分组或窗口全部标签。 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TabNest · 快捷收纳</title>
+    <link rel="stylesheet" href="popup.css">
+    <script type="module" src="popup.js"></script>
+</head>
+<body>
+    <header><img src="icon.png" width="30" height="30" alt=""><b>TabNest</b><span>快捷收纳</span></header>
+    <p class="lead">把正在打开的标签，收进你的收藏。</p>
+    <section>
+        <label for="tab-choice">单个标签 <span>默认当前正在浏览的页面</span></label>
+        <select id="tab-choice" aria-label="选择要收纳的标签"></select>
+        <button id="capture-tab" disabled>收纳单个标签 <span>↙</span></button>
+    </section>
+    <section>
+        <label for="group-choice">浏览器分组 <span>保留名称、颜色与顺序</span></label>
+        <select id="group-choice" aria-label="选择要收纳的分组"></select>
+        <button id="capture-group" disabled>收纳这一组 <span>▤</span></button>
+    </section>
+    <button id="capture-window" class="primary" disabled>全部收纳 <span id="window-count">0 个标签</span></button>
+    <div class="settings">
+        <label><input id="close-tabs" type="checkbox"> 保存成功后关闭所选标签</label>
+        <label><input id="merge-groups" type="checkbox" checked> 同名分组自动合并</label>
+    </div>
+    <p id="status" role="status" aria-live="polite">正在读取当前窗口…</p>
+    <button id="open-manager" class="manager">打开我的收纳 <span>↗</span></button>
+</body>
+</html>

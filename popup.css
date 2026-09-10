@@ -1,0 +1,32 @@
+/* 快捷收纳面板沿用墨绿与浅绿视觉，紧凑布局适配 Edge 工具栏弹窗。 */
+:root { color-scheme: light; font: 13px/1.5 "Segoe UI", "Microsoft YaHei", sans-serif;
+    --bg: #f6f7f2; --surface: #fff; --ink: #25352d; --muted: #647260; --line: #dce3d6; }
+* { box-sizing: border-box; }
+body { width: 380px; margin: 0; padding: 20px; background: var(--bg); color: var(--ink); }
+header { display: flex; align-items: center; gap: 9px; }
+header img { border-radius: 8px; }
+header b { font-size: 21px; letter-spacing: -.6px; }
+header > span { margin-left: auto; color: var(--muted); font-size: 11px; }
+.lead { color: var(--muted); margin: 10px 0 16px; font-size: 12px; }
+section { border: 1px solid var(--line); border-radius: 11px; padding: 12px; margin: 12px 0;
+    background: var(--surface); }
+section > label { display: flex; align-items: center; justify-content: space-between; font-weight: 600; }
+section > label span { color: var(--muted); font-size: 10px; font-weight: 400; }
+button, select { font: inherit; color: inherit; }
+select { width: 100%; padding: 7px; margin: 9px 0; background: var(--bg); border: 1px solid var(--line);
+    border-radius: 6px; overflow: hidden; text-overflow: ellipsis; }
+button { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 9px 12px;
+    border: 1px solid var(--line); border-radius: 7px; background: var(--bg); cursor: pointer; font-weight: 600; }
+button:hover { filter: brightness(.97); }
+button:disabled { opacity: .5; cursor: default; }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 3px solid #7aa546; outline-offset: 2px; }
+button span { font-weight: 400; font-size: 11px; }
+.primary { background: #d5ef94; border-color: #c7df8a; color: #25352d; padding: 12px; }
+.settings { display: grid; gap: 7px; margin-top: 14px; font-size: 11px; color: var(--muted); }
+input { accent-color: #5a753b; vertical-align: middle; }
+#status { margin: 10px 0; font-size: 11px; color: var(--muted); min-height: 17px; overflow-wrap: anywhere; }
+#status.error { color: #bd4c43; }
+.manager { background: transparent; border-color: transparent; border-top-color: var(--line);
+    border-radius: 0; padding: 10px 0 0; color: var(--muted); }
+:root[data-theme="dark"] { color-scheme: dark; --bg: #18221d; --surface: #222f27; --ink: #e5eddf;
+    --muted: #a1b09c; --line: #3e4d3e; }

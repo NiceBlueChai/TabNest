@@ -1,0 +1,9 @@
+# TabNest Git 忽略规则：排除发布包、系统文件和本地浏览器测试数据。
+*.zip
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+coverage/
+edge-profile/
+test-results/

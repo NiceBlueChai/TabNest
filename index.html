@@ -1,0 +1,129 @@
+<!doctype html>
+<!-- 标签收纳管理页：语义化表单、可键盘访问的操作和本地备份入口。 -->
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TabNest · 标签收纳</title>
+    <link rel="icon" href="icon.png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" type="module"></script>
+</head>
+<body>
+    <aside class="sidebar">
+        <a class="brand" href="index.html"><span class="brand-mark" data-icon="archive"></span>
+            TabNest<span class="brand-dot">●</span></a>
+        <nav class="sidebar-nav" aria-label="收纳分组">
+            <p class="sidebar-label">你的数字收纳空间</p>
+            <button class="nav active" id="all-records" aria-current="page">
+                <span data-icon="grid"></span> 全部收纳 <b id="side-count">0</b></button>
+            <p class="sidebar-label group-label">标签分组</p>
+            <div id="group-nav"></div>
+        </nav>
+        <div class="sidebar-bottom">
+            <div class="local-note"><span class="status-dot"></span> 只在你的设备上<br><small>无需账号，收藏安心留在本地。</small></div>
+            <button id="theme" class="theme-button">◐ 切换深色外观</button>
+            <span class="version">TABNEST / 1.0</span>
+        </div>
+    </aside>
+    <main>
+        <header class="topbar">
+            <span class="breadcrumb">工作空间 <span>/</span> <b id="current-view">全部收纳</b></span>
+            <div class="toolbar">
+                <button id="deduplicate" class="button" title="相同网址仅保留最新记录中的副本">清理重复</button>
+                <button id="import-open" class="button"><span data-icon="upload"></span> 导入</button>
+                <button id="export-open" class="button"><span data-icon="download"></span> 导出备份</button>
+            </div>
+        </header>
+        <section class="intro">
+            <div><p class="eyebrow">LESS CLUTTER. MORE FOCUS.</p>
+                <h1>把标签放好，<br><span>给思绪留白。</span></h1>
+                <p class="intro-copy">让每一次探索，都有一个可以回来的地方。</p>
+            </div>
+            <div class="hero-art" aria-hidden="true">
+                <div class="art-card art-back"><i></i><em></em><em></em></div>
+                <div class="art-card art-front"><b>✳</b><i></i><em></em><em></em>
+                    <span>Everything in its place.</span></div>
+                <span class="art-spark">✦</span>
+            </div>
+        </section>
+        <section class="capture-panel" aria-label="收纳标签">
+            <div class="capture-icon" data-icon="archive" aria-hidden="true"></div>
+            <div class="capture-copy"><h2>收纳此刻的灵感</h2>
+                <p>保留标签顺序、固定状态和浏览器分组。</p></div>
+            <div class="capture-actions">
+                <label class="scope"><input type="checkbox" id="all-windows"> 包含所有窗口</label>
+                <label class="scope" title="同名非空分组合并到最新记录，使用最新分组颜色">
+                    <input type="checkbox" id="merge-groups" checked> 同名分组自动合并</label>
+                <div><button id="choose-open" class="button">收纳单个 / 一组</button>
+                    <button id="save-only" class="button">全部收纳</button>
+                    <button id="save-close" class="button primary">保存并关闭
+                        <span data-icon="external"></span></button></div>
+            </div>
+        </section>
+        <section class="collection" aria-label="已保存的标签">
+            <div class="collection-head">
+                <div><h2><strong id="collection-title">我的收纳</strong> <span id="record-count">0</span></h2>
+                    <p id="stats">准备好收纳你的第一个窗口。</p></div>
+                <div class="collection-tools">
+                    <button id="collapse-all" class="button collapse-all" type="button" aria-label="全部折叠">
+                        <span data-icon="chevron"></span><span>全部折叠</span></button>
+                    <label class="restore-choice">恢复到
+                        <span class="select-wrap"><select id="restore-target"><option value="current">当前窗口</option>
+                            <option value="new" selected>新窗口</option></select>
+                            <span data-icon="chevron" class="select-arrow"></span></span></label>
+                    <label class="search"><span data-icon="search" aria-hidden="true"></span>
+                    <input id="search" type="search" placeholder="搜索标题、网址、分组…" aria-label="搜索收纳">
+                        <kbd>/</kbd></label>
+                </div>
+            </div>
+            <div id="records"></div>
+            <div id="empty" class="empty"><div>▤</div><h3>从一组标签开始，找回清爽</h3>
+                <p>点击上方「全部收纳」，或选择一个已打开的标签或分组。</p></div>
+        </section>
+        <footer>给打开的每一种可能，留一个位置。<span>本地存储 · 建议定期导出备份</span></footer>
+    </main>
+    <dialog id="choose-dialog">
+        <div class="dialog-head"><h2>从当前窗口选择</h2>
+            <button class="icon-button" data-dismiss aria-label="关闭">×</button></div>
+        <iframe id="choose-frame" title="选择已打开的标签或分组" width="380" height="580"></iframe>
+    </dialog>
+    <dialog id="import-dialog">
+        <form id="import-form"><div class="dialog-head"><h2>带上你的收藏</h2>
+            <button type="button" class="icon-button" data-dismiss aria-label="关闭">×</button></div>
+            <p>支持 TabNest JSON 备份、OneTab 导出文本。导入将添加新记录，不覆盖现有内容。</p>
+            <label class="file-label">选择备份文件（最大 15 MB）
+                <input type="file" id="import-file" accept=".json,.txt,application/json,text/plain"></label>
+            <label class="field">或粘贴 OneTab 文本 / JSON
+                <textarea id="import-text" rows="8" placeholder="https://example.com | 页面标题"></textarea></label>
+            <p class="muted">文本按空行建立「导入分组 1、2…」，自动跳过内部页。
+                重复导入会为已有未分组链接补回分组；完整备份请用 JSON。</p>
+            <label class="field"><input type="checkbox" id="import-merge" checked> 自动合并同名分组</label>
+            <button class="button primary" type="submit">导入到收纳</button>
+        </form>
+    </dialog>
+    <dialog id="export-dialog">
+        <form id="export-form"><div class="dialog-head"><h2>为收藏留一份备份</h2>
+            <button type="button" class="icon-button" data-dismiss aria-label="关闭">×</button></div>
+            <label class="radio"><input type="radio" name="format" value="json" checked>
+                <span><b>TabNest JSON</b><small>完整保存分组、颜色、顺序和固定状态，推荐。</small></span></label>
+            <label class="radio"><input type="radio" name="format" value="txt">
+                <span><b>OneTab 文本</b><small>便于迁移与分享；不包含分组名称、颜色和固定状态。</small></span></label>
+            <button class="button primary" type="submit">下载备份</button>
+        </form>
+    </dialog>
+    <dialog id="rename-dialog">
+        <form id="rename-form"><div class="dialog-head"><h2>换个好记的名字</h2>
+            <button type="button" class="icon-button" data-dismiss aria-label="关闭">×</button></div>
+            <label class="field">名称<input id="rename-input" required maxlength="200"></label>
+            <button class="button primary" type="submit">保存名称</button>
+        </form>
+    </dialog>
+    <dialog id="delete-dialog">
+        <form id="delete-form"><h2>删除这条收纳记录？</h2><p>此操作不会关闭已打开的标签。删除后无法撤销，建议先导出备份。</p>
+            <div class="dialog-actions"><button type="button" class="button" data-dismiss>取消</button>
+                <button type="submit" class="button danger">确认删除</button></div></form>
+    </dialog>
+    <div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
